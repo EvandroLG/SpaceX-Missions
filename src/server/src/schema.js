@@ -33,10 +33,42 @@ const RocketType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: () => ({
-    type: new GraphQLList(LaunchType),
-    async resolve(parent, args) {
-      const { data } = await axios.get(api);
-      return data;
+    launches: {
+      type: new GraphQLList(LaunchType),
+      async resolve(parent, args) {
+        const result = await axios.get(`${api}launches/`);
+        return result.data;
+      },
+    },
+
+    launch: {
+      type: LaunchType,
+      args: {
+        flight_number: { type: GraphQLInt },
+      },
+      async resolve(parent, args) {
+        const result = await axios.get(`${api}launches/${args.flight_number}`);
+        return result.data;
+      },
+    },
+
+    rockets: {
+      type: new GraphQLList(RocketType),
+      async resolve(parent, args) {
+        const result = await axios.get(`${api}rockets/`);
+        return result.data;
+      },
+    },
+
+    rocket: {
+      type: RocketType,
+      args: {
+        flight_number: { type: GraphQLInt },
+      },
+      async resolve(parent, args) {
+        const result = await axios.get(`${api}rockets/${args.flight_number}`);
+        return result.data;
+      },
     },
   }),
 });
