@@ -2,6 +2,9 @@ import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
+import ILaunch from "../interfaces/ILaunch";
+import LaunchItem from "./LaunchItem";
+
 const query = gql`
   query LaunchesQuery {
     launches {
@@ -15,13 +18,18 @@ const query = gql`
 
 const Launches = () => {
   const { loading, data } = useQuery(query);
-  console.log(data);
 
   return (
-    <div>
+    <>
       <h1>Launches</h1>
-      {loading ? <p>Loading...</p> : <div>test</div>}
-    </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        data.launches.map((launch: ILaunch, i: number) => (
+          <LaunchItem key={i} {...launch} />
+        ))
+      )}
+    </>
   );
 };
 
