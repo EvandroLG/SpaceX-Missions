@@ -8,7 +8,12 @@ const LaunchItem: React.FC<ILaunch> = ({
   launch_date_local,
   launch_success,
 }) => {
-  return <>here??</>;
+  return (
+    <div>
+      <h4>Mission: {mission_name}</h4>
+      <p>Date: {launch_date_local}</p>
+    </div>
+  );
 };
 
 export default LaunchItem;
