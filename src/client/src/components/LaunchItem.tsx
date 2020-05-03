@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import ILaunch from "../interfaces/ILaunch";
 
@@ -12,6 +13,7 @@ const LaunchItem: React.FC<ILaunch> = ({
     <div>
       <h4>Mission: {mission_name}</h4>
       <p>Date: {launch_date_local}</p>
+      <Link to={`/launch/${flight_number}`}>Launch Details</Link>
     </div>
   );
 };
